@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Website</title>
+    <link rel="stylesheet" href="/static/css/hamestyle.css">
+  </head>
+  <body>
+    <script type="text/javascript">
+      ! function (e, t, a) {
+         function r() {
+             for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[
+                     e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x +
+                 "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e]
+                 .scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+             requestAnimationFrame(r)
+         }
+
+         function n() {
+             var t = "function" == typeof e.onclick && e.onclick;
+             e.onclick = function (e) {
+                 t && t(), o(e)
+             }
+         }
+
+         function o(e) {
+             var a = t.createElement("div");
+             a.className = "heart", s.push({
+                 el: a,
+                 x: e.clientX - 5,
+                 y: e.clientY - 5,
+                 scale: 1,
+                 alpha: 1,
+                 color: c()
+             }), t.body.appendChild(a)
+         }
+         function i(e) {
+                var a = t.createElement("style");
+                a.type = "text/css";
+                try {
+                    a.appendChild(t.createTextNode(e))
+                } catch (t) {
+                    a.styleSheet.cssText = e
+                }
+                t.getElementsByTagName("head")[0].appendChild(a)
+            }
+ 
+            function c() {
+                return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math
+                    .random()) + ")"
+            }
+            var s = [];
+            e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e
+                .mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+                    setTimeout(e, 1e3 / 60)
+                }, i(
+                    ".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"
+                ), n(), r()
+        }(window, document);
+    </script>
+    <div class="container">
+      <div class="menu">
+        <div class="menu-header">
+          <img src="/static/image/DSA.png" alt="Menu Header">
+        </div>
+        <ul>
+          <li><a href="IN">Introduction</a></li>
+          <li><a href="DataA">Data Analysis</a></li>
+          <li><a href="DataM">Data Modeling</a></li>
+          <li><a href="Fin">Findings</a></li>
+          <li><a href="Eva">Evaluation</a></li>
+          <li><a href="Conclu">Conclusion</a></li>
+        </ul>
+      </div>
+      <div class="content">
+        <p><h1>Data Modeling</h1><p>
+        <p><h2>The code of data modeling</h2></p>
+        <p><h2><strong>R:</strong></strong></h2></p>
+        <pre>
+            <code>
+                library(stringr)
+                x=1
+                table$job_code = "000"
+                while(x<=1000){
+                #sales
+                if(str_detect(table[x,"title"], 'cashier')==TRUE
+                   ||str_detect(table[x,"title"], 'sales')==TRUE)
+                    {table[x,"job_code"] = "312"}
+                   if(str_detect(table[x,"title"], '銷售')==TRUE
+                   ||str_detect(table[x,"title"], '售')==TRUE
+                   ||str_detect(table[x,"title"], '店')==TRUE
+                   ||str_detect(table[x,"title"], '推廣')==TRUE
+                   && str_detect(table[x,"title"], '員') == TRUE)
+                  {table[x,"job_code"] = "312"}
+                  
+                #part time sales
+                if(str_detect(table[x,"title"], 'cashier')==TRUE
+                    && str_detect(table[x,"title"], 'part') == TRUE
+                   && str_detect(table[x,"title"], 'time') == TRUE
+                   ||str_detect(table[x,"title"], 'sal')==TRUE
+                   && str_detect(table[x,"title"], 'part') == TRUE
+                   && str_detect(table[x,"title"], 'time') == TRUE
+                   ){
+                  table[x,"job_code"] = "411"}
+                    if(str_detect(table[x,"title"], '店')==TRUE
+                    && str_detect(table[x,"title"], '兼職') == TRUE
+                    && str_detect(table[x,"title"], '助理') == TRUE
+                    || str_detect(table[x,"title"], '兼職') == TRUE
+                    ){
+                  table[x,"job_code"] = "411"}
+                  
+                  #senior sales
+                  if(str_detect(table[x,"title"], 'senior')==TRUE
+                     && str_detect(table[x,"title"], 'sal') == TRUE
+                     || str_detect(table[x,"title"], '高') == TRUE
+                     || str_detect(table[x,"title"], '資深') == TRUE
+                     && str_detect(table[x,"title"], '售') == TRUE){
+                    table[x,"job_code"] = "311"}
+                
+                  # all manager
+                  if(str_detect(table[x,"title"], 'mana')==TRUE
+                     ||str_detect(table[x,"title"], '經理')==TRUE){
+                    table[x,"job_code"] = "112"} 
+                  
+                # operation manager
+                if(str_detect(table[x,"title"], 'operat')==TRUE
+                  || str_detect(table[x,"title"], 'retail') == TRUE
+                  &&str_detect(table[x,"title"], 'mana')==TRUE
+                  || str_detect(table[x,"title"], 'executive') == TRUE
+                  ||str_detect(table[x,"title"], '營運')==TRUE
+                  ||str_detect(table[x,"title"], '零售')==TRUE
+                  &&str_detect(table[x,"title"], '經理')==TRUE){
+                  table[x,"job_code"] = "112"} 
+                  
+                # district manager
+                  if(str_detect(table[x,"title"], 'operat')==TRUE
+                     || str_detect(table[x,"title"], 'retail') == TRUE
+                     &&str_detect(table[x,"title"], 'mana')==TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE
+                     ||str_detect(table[x,"title"], '營運')==TRUE
+                     ||str_detect(table[x,"title"], '零售')==TRUE
+                     &&str_detect(table[x,"title"], '經理')==TRUE){
+                    table[x,"job_code"] = "113"} 
+                  
+                # store manager
+                if(str_detect(table[x,"title"], '店')==TRUE
+                  && str_detect(table[x,"title"], '經理') == TRUE
+                  ||str_detect(table[x,"title"], 'shop')==TRUE
+                  && str_detect(table[x,"title"], 'mana') == TRUE
+                  ||str_detect(table[x,"title"], 'store')==TRUE
+                  && str_detect(table[x,"title"], 'mana') == TRUE
+                  || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "114"} 
+                  
+                # marketing manager
+                  if(str_detect(table[x,"title"], '市場')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'market')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "115"} 
+                  
+                  # sales manager
+                  if(str_detect(table[x,"title"], '銷售')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'sal')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "116"} 
+                  
+                  # sales manager
+                  if(str_detect(table[x,"title"], '客')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'customer')==TRUE
+                     ||str_detect(table[x,"title"], 'client')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "117"} 
+                  
+                  # sales manager
+                  if(str_detect(table[x,"title"], '採購')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'merchan')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "118"} 
+                  
+                  # logistics manager
+                  if(str_detect(table[x,"title"], '物流')==TRUE
+                     ||str_detect(table[x,"title"], '運輸')==TRUE
+                     ||str_detect(table[x,"title"], '倉庫')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'logi')==TRUE
+                     ||str_detect(table[x,"title"], 'dsitri')==TRUE
+                     ||str_detect(table[x,"title"], 'ware')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "119"} 
+                  
+                  # training manager
+                  if(str_detect(table[x,"title"], '訓')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'train')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "120"} 
+                  
+                  # design manager
+                  if(str_detect(table[x,"title"], '視')==TRUE
+                     ||str_detect(table[x,"title"], '設計')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'visual')==TRUE
+                     ||str_detect(table[x,"title"], 'design')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "121"} 
+                  
+                  # bus ana manager
+                  if(str_detect(table[x,"title"], '分析')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'bus')==TRUE
+                     &&str_detect(table[x,"title"], 'ana')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "122"} 
+                  
+                  # e-commerce manager
+                  if(str_detect(table[x,"title"], '電')==TRUE
+                     ||str_detect(table[x,"title"], '網')==TRUE
+                     && str_detect(table[x,"title"], '經理') == TRUE
+                     ||str_detect(table[x,"title"], 'e-')==TRUE
+                     ||str_detect(table[x,"title"], 'online')==TRUE
+                     ||str_detect(table[x,"title"], 'web')==TRUE
+                     && str_detect(table[x,"title"], 'mana') == TRUE
+                     || str_detect(table[x,"title"], 'executive') == TRUE){
+                    table[x,"job_code"] = "123"} 
+                
+                  # all senior
+                  if(str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE
+                     || str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE
+                     &&str_detect(table[x,"title"], 'manag') == FALSE){
+                    table[x,"job_code"] = "211"} 
+                  
+                  # store senior
+                  if(str_detect(table[x,"title"], '店')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE){
+                    table[x,"job_code"] = "211"} 
+                     if(str_detect(table[x,"title"], '超市')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE){
+                       table[x,"job_code"] = "211"} 
+                     if(str_detect(table[x,"title"], 'shop')==TRUE
+                        &&str_detect(table[x,"title"], 'manag') == FALSE
+                        && str_detect(table[x,"title"], 'execu') == TRUE
+                        || str_detect(table[x,"title"], 'senior') == TRUE
+                        || str_detect(table[x,"title"], 'officer') == TRUE
+                        || str_detect(table[x,"title"], 'supervi') == TRUE){
+                       table[x,"job_code"] = "211"} 
+                     if(str_detect(table[x,"title"], 'store')==TRUE
+                      &&str_detect(table[x,"title"], 'manag') == FALSE
+                     && str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "211"} 
+                  
+                  # design manager
+                  if(str_detect(table[x,"title"], '視')==TRUE
+                     ||str_detect(table[x,"title"], '設計')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管') == TRUE
+                     ||str_detect(table[x,"title"], 'visual')==TRUE
+                     ||str_detect(table[x,"title"], 'design')==TRUE
+                     && str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "212"} 
+                  
+                  # logistics manager
+                  if(str_detect(table[x,"title"], '物流')==TRUE
+                     ||str_detect(table[x,"title"], '運輸')==TRUE
+                     ||str_detect(table[x,"title"], '倉庫')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管') == TRUE
+                     ||str_detect(table[x,"title"], 'logi')==TRUE
+                     ||str_detect(table[x,"title"], 'dsitri')==TRUE
+                     ||str_detect(table[x,"title"], 'ware')==TRUE
+                     && str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "213"} 
+                  
+                  # public manager
+                  if(str_detect(table[x,"title"], '公共')==TRUE
+                     ||str_detect(table[x,"title"], '廣告')==TRUE
+                     ||str_detect(table[x,"title"], '推廣')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE
+                     ||str_detect(table[x,"title"], 'pub')==TRUE
+                     ||str_detect(table[x,"title"], 'adv')==TRUE
+                     && str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "214"} 
+                  
+                # customer service officer
+                  if(str_detect(table[x,"title"], '顧客')==TRUE
+                     ||str_detect(table[x,"title"], '客戶')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE
+                     ||str_detect(table[x,"title"], 'customer')==TRUE
+                     ||str_detect(table[x,"title"], 'client')==TRUE
+                     && str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "215"} 
+                  
+                  # merchan officer
+                  if(str_detect(table[x,"title"], '採購')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE
+                     ||str_detect(table[x,"title"], 'merchan')==TRUE
+                     && str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "216"} 
+                  
+                  # training senior
+                  if(str_detect(table[x,"title"], '訓')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE
+                     ||str_detect(table[x,"title"], 'train')==TRUE
+                     && str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "217"} 
+                
+                  # e-commerce senior
+                  if(str_detect(table[x,"title"], '電')==TRUE
+                     ||str_detect(table[x,"title"], '網')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE
+                     ||str_detect(table[x,"title"], 'e-')==TRUE
+                     ||str_detect(table[x,"title"], 'online')==TRUE
+                     ||str_detect(table[x,"title"], 'web')==TRUE
+                     && str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "218"} 
+                  
+                  # bus ana officer
+                  if(str_detect(table[x,"title"], '分析')==TRUE
+                     && str_detect(table[x,"title"], '主任') == TRUE
+                     ||str_detect(table[x,"title"], '主管')==TRUE
+                     ||str_detect(table[x,"title"], 'bus')==TRUE
+                     &&str_detect(table[x,"title"], 'ana')==TRUE
+                     && str_detect(table[x,"title"], 'execu') == TRUE
+                     || str_detect(table[x,"title"], 'senior') == TRUE
+                     || str_detect(table[x,"title"], 'officer') == TRUE
+                     || str_detect(table[x,"title"], 'supervi') == TRUE){
+                    table[x,"job_code"] = "219"} 
+                  
+                  # inventory assistant
+                  if(str_detect(table[x,"title"], '庫存')==TRUE
+                     && str_detect(table[x,"title"], '助理') == TRUE
+                     ||str_detect(table[x,"title"], 'inven')==TRUE
+                     && str_detect(table[x,"title"], 'assis') == TRUE){
+                    table[x,"job_code"] = "511"} 
+                
+                # warehouse assistant
+                if(str_detect(table[x,"title"], '倉')==TRUE
+                   && str_detect(table[x,"title"], '助理') == TRUE
+                   ||str_detect(table[x,"title"], 'ware')==TRUE
+                   && str_detect(table[x,"title"], 'assis') == TRUE){
+                  table[x,"job_code"] = "512"} 
+                
+                # market assistant
+                if(str_detect(table[x,"title"], '市場')==TRUE
+                   ||str_detect(table[x,"title"], '推廣')==TRUE
+                   && str_detect(table[x,"title"], '助理') == TRUE
+                   ||str_detect(table[x,"title"], 'maket')==TRUE
+                   && str_detect(table[x,"title"], 'assis') == TRUE){
+                  table[x,"job_code"] = "513"} 
+                
+                # customer assistant
+                if(str_detect(table[x,"title"], '客戶')==TRUE
+                   ||str_detect(table[x,"title"], '顧客')==TRUE
+                   ||str_detect(table[x,"title"], '客務')==TRUE
+                   ||str_detect(table[x,"title"], '推廣')==TRUE
+                   ||str_detect(table[x,"title"], '關係')==TRUE
+                   && str_detect(table[x,"title"], '助理') == TRUE
+                   ||str_detect(table[x,"title"], 'custom')==TRUE
+                   ||str_detect(table[x,"title"], 'service')==TRUE
+                   ||str_detect(table[x,"title"], 'rela')==TRUE
+                   && str_detect(table[x,"title"], 'assis') == TRUE){
+                  table[x,"job_code"] = "514"} 
+                
+                # e-commerce assistant
+                if(str_detect(table[x,"title"], '電')==TRUE
+                   ||str_detect(table[x,"title"], '網')==TRUE
+                   && str_detect(table[x,"title"], '助理') == TRUE
+                   ||str_detect(table[x,"title"], 'e-')==TRUE
+                   ||str_detect(table[x,"title"], 'online')==TRUE
+                   ||str_detect(table[x,"title"], 'web')==TRUE
+                   && str_detect(table[x,"title"], 'assis') == TRUE){
+                  table[x,"job_code"] = "515"} 
+                
+                # design assistant
+                if(str_detect(table[x,"title"], '視')==TRUE
+                   ||str_detect(table[x,"title"], '設計')==TRUE
+                   && str_detect(table[x,"title"], '助理') == TRUE
+                   ||str_detect(table[x,"title"], 'visual')==TRUE
+                   ||str_detect(table[x,"title"], 'design')==TRUE
+                   && str_detect(table[x,"title"], 'assis') == TRUE){
+                     table[x,"job_code"] = "516"} 
+                  
+                  # merchan assistant
+                  if(str_detect(table[x,"title"], '採購')==TRUE
+                     && str_detect(table[x,"title"], '助理') == TRUE
+                     ||str_detect(table[x,"title"], 'merchan')==TRUE
+                     && str_detect(table[x,"title"], 'assis') == TRUE){
+                    table[x,"job_code"] = "517"} 
+                  
+                  
+                  x = x + 1
+                }   
+            </code>
+          </pre>
+          
+          <p><h2><strong>Python:</strong></strong></h2></p>
+          <pre>
+              <code>
+                import pandas as pd
+                import numpy as np
+                import re
+                
+
+                table['job_code'] = '000'
+                
+                # iterate over each row in the table
+                for x in range(len(table)):
+                  
+                  # sales
+                  if ('cashier' in table.loc[x, 'title'] or 'sales' in table.loc[x, 'title'] or 
+                      ('銷售' in table.loc[x, 'title'] or '售' in table.loc[x, 'title'] or '店' in table.loc[x, 'title'] or '推廣' in table.loc[x, 'title']) and '員' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '312'
+                  
+                  # part-time sales
+                  if ('cashier' in table.loc[x, 'title'] and 'part' in table.loc[x, 'title'] and 'time' in table.loc[x, 'title'] or
+                      ('sal' in table.loc[x, 'title'] and 'part' in table.loc[x, 'title'] and 'time' in table.loc[x, 'title']) or
+                      ('店' in table.loc[x, 'title'] and '兼職' in table.loc[x, 'title'] and '助理' in table.loc[x, 'title']) or
+                      '兼職' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '411'
+                
+                  # senior sales
+                  if ('senior' in table.loc[x, 'title'] and 'sal' in table.loc[x, 'title'] or 
+                      '高' in table.loc[x, 'title'] or '資深' in table.loc[x, 'title'] and '售' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '311'
+                
+                  # all manager
+                  if ('mana' in table.loc[x, 'title'] or '經理' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '112'
+                
+                  # operation manager
+                  if ('operat' in table.loc[x, 'title'] or 'retail' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'executive' in table.loc[x, 'title'] or '營運' in table.loc[x, 'title'] or 
+                      '零售' in table.loc[x, 'title'] and '經理' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '112'
+                
+                  # district manager
+                  if ('operat' in table.loc[x, 'title'] or 'retail' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'executive' in table.loc[x, 'title'] or '營運' in table.loc[x, 'title'] or 
+                      '零售' in table.loc[x, 'title'] and '經理' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '113'
+                
+                  # store manager
+                  if ('店' in table.loc[x, 'title'] and '經理' in table.loc[x, 'title'] or 
+                      'shop' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'store' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'executive' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '114'
+                
+                  # marketing manager
+                  if ('市場' in table.loc[x, 'title'] and '經理' in table.loc[x, 'title'] or 
+                      'market' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'executive' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '115'
+                
+                  # sales manager
+                  if ('銷售' in table.loc[x, 'title'] and '經理' in table.loc[x, 'title'] or 
+                      'sal' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'customer' in table.loc[x, 'title'] or 'client' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'executive' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '116'
+                
+                  # customer service manager
+                  if ('客' in table.loc[x, 'title'] and '經理' in table.loc[x, 'title'] or 
+                      'customer' in table.loc[x, 'title'] or 'client' in table.loc[x, 'title'] and 'mana' in table.loc[x, 'title'] or 
+                      'executive' in table.loc[x, 'title']):
+                    table.loc[x, 'job_code'] = '117'
+
+                    # Sales Manager
+                    if ('採購' in table[x,"title"] and '經理' in table[x,"title"]) or ('merchan' in table[x,"title"] and 'mana' in table[x,"title"]) or ('executive' in table[x,"title"]):
+                        table[x,"job_code"] = "118"
+                    
+                    # Logistics Manager
+                    if ('物流' in table[x,"title"] or '運輸' in table[x,"title"] or '倉庫' in table[x,"title"]) and '經理' in table[x,"title"] or ('logi' in table[x,"title"] or 'dsitri' in table[x,"title"] or 'ware' in table[x,"title"]) and 'mana' in table[x,"title"] or 'executive' in table[x,"title"]:
+                        table[x,"job_code"] = "119"
+                    
+                    # Training Manager
+                    if ('訓' in table[x,"title"] and '經理' in table[x,"title"]) or ('train' in table[x,"title"] and 'mana' in table[x,"title"]) or 'executive' in table[x,"title"]:
+                        table[x,"job_code"] = "120"
+                    
+                    # Design Manager
+                    if ('視' in table[x,"title"] or '設計' in table[x,"title"]) and '經理' in table[x,"title"] or ('visual' in table[x,"title"] or 'design' in table[x,"title"]) and 'mana' in table[x,"title"] or 'executive' in table[x,"title"]:
+                        table[x,"job_code"] = "121"
+                    
+                    # Business Analysis Manager
+                    if ('分析' in table[x,"title"] and '經理' in table[x,"title"]) or ('bus' in table[x,"title"] and 'ana' in table[x,"title"] and 'mana' in table[x,"title"]) or 'executive' in table[x,"title"]:
+                        table[x,"job_code"] = "122"
+                    
+                    # E-commerce Manager
+                    if ('電' in table[x,"title"] or '網' in table[x,"title"]) and '經理' in table[x,"title"] or ('e-' in table[x,"title"] or 'online' in table[x,"title"] or 'web' in table[x,"title"]) and 'mana' in table[x,"title"] or 'executive' in table[x,"title"]:
+                        table[x,"job_code"] = "123"
+                    
+                    # All Senior
+                    if ('主任' in table[x,"title"] or '主管' in table[x,"title"] or 'execu' in table[x,"title"] or 'senior' in table[x,"title"] or 'officer' in table[x,"title"] or 'supervi' in table[x,"title"]) and 'manag' not in table[x,"title"]:
+                        table[x,"job_code"] = "211"
+                    
+                    # Store Senior
+                    if ('店' in table[x,"title"] and ('主任' in table[x,"title"] or '主管' in table[x,"title"])) or ('超市' in table[x,"title"] and ('主任' in table[x,"title"] or '主管' in table[x,"title"])) or ('shop' in table[x,"title"] and ('manag' not in table[x,"title"] and ('execu' in table[x,"title"] or 'senior' in table[x,"title"] or 'officer' in table[x,"title"] or 'supervi' in table[x,"title"]))) or ('store' in table[x,"title"] and ('manag' not in table[x,"title"] and ('execu' in table[x,"title"] or 'senior' in table[x,"title"] or 'officer' in table[x,"title"] or 'supervi' in table[x,"title"]))):
+                        table[x,"job_code"] = "211"
+                    
+                    # Design Senior
+                    if ('視' in table[x,"title"] or '設計' in table[x,"title"]) and ('主任' in table[x,"title"] or '主管' in table[x,"title"] or 'visual' in table[x,"title"] or 'design' in table[x,"title"]) and 'senior' in table[x,"title"] or 'execu' in table[x,"title"] or 'officer' in table[x,"title"] or 'supervi' in table[x,"title"]:
+                        table[x,"job_code"] = "212"    
+
+                    if ('物流' in title or '運輸' in title or '倉庫' in title) and ('主任' in title or '主管' in title or 'logi' in title or 'dsitri' in title or 'ware' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '213'
+
+                    if ('公共' in title or '廣告' in title or '推廣' in title) and ('主任' in title or '主管' in title or 'pub' in title or 'adv' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '214'
+
+                    if ('顧客' in title or '客戶' in title) and ('主任' in title or '主管' in title or 'customer' in title or 'client' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '215'
+
+                    if ('採購' in title) and ('主任' in title or '主管' in title or 'merchan' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '216'
+
+                    if ('訓' in title) and ('主任' in title or '主管' in title or 'train' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '217'
+
+                    if ('電' in title or '網' in title) and ('主任' in title or '主管' in title or 'e-' in title or 'online' in title or 'web' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '218'
+
+                    if ('分析' in title or 'bus' in title) and ('ana' in title) and ('主任' in title or '主管' in title or 'senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '219'
+
+                    if ('庫存' in title) and ('助理' in title or 'inven' in title):
+                        table[x, 'job_code'] = '511'
+
+                    if ('倉' in title) and ('助理' in title or 'ware' in title):
+                        table[x, 'job_code'] = '512'
+
+                    if ('市場' in title or '推廣' in title) and ('助理' in title or 'maket' in title):
+                        table[x, 'job_code'] = '513'
+
+                    if ('客戶' in title or '顧客' in title or '客務' in title or '推廣' in title or '關係' in title) and ('助理' in title or 'custom' in title or 'service' in title or 'rela' in title):
+                        table[x, 'job_code'] = '514'
+
+                    if ('電' in title or '網' in title) and ('助理' in title or 'e-' in title or 'online' in title or 'web' in title):
+                        table[x, 'job_code'] = '515'
+
+                    if ('視' in title or '設計' in title) and ('主任' in title or '主管' in title or 'visual' in title or 'design' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '212'
+
+                    if ('採購' in title) and ('助理' in title or 'merchan' in title):
+                        table[x, 'job_code'] = '517'
+                
+                    if ('物流' in title or '運輸' in title or '倉庫' in title) and ('主任' in title or '主管' in title or 'logi' in title or 'dsitri' in title or 'ware' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '213'
+
+                    if ('公共' in title or '廣告' in title or '推廣' in title) and ('主任' in title or '主管' in title or 'pub' in title or 'adv' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '214'
+
+                    if ('顧客' in title or '客戶' in title) and ('主任' in title or '主管' in title or 'customer' in title or 'client' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '215'
+
+                    if ('採購' in title) and ('主任' in title or '主管' in title or 'merchan' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '216'
+
+                    if ('訓' in title) and ('主任' in title or '主管' in title or 'train' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '217'
+
+                    if ('電' in title or '網' in title) and ('主任' in title or '主管' in title or 'e-' in title or 'online' in title or 'web' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '218'
+
+                    if ('分析' in title or 'bus' in title) and ('ana' in title) and ('主任' in title or '主管' in title or 'senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '219'
+
+                    if ('庫存' in title) and ('助理' in title or 'inven' in title):
+                        table[x, 'job_code'] = '511'
+
+                    if ('倉' in title) and ('助理' in title or 'ware' in title):
+                        table[x, 'job_code'] = '512'
+
+                    if ('市場' in title or '推廣' in title) and ('助理' in title or 'maket' in title):
+                        table[x, 'job_code'] = '513'
+
+                    if ('客戶' in title or '顧客' in title or '客務' in title or '推廣' in title or '關係' in title) and ('助理' in title or 'custom' in title or 'service' in title or 'rela' in title):
+                        table[x, 'job_code'] = '514'
+
+                    if ('電' in title or '網' in title) and ('助理' in title or 'e-' in title or 'online' in title or 'web' in title):
+                        table[x, 'job_code'] = '515'
+
+                    if ('視' in title or '設計' in title) and ('主任' in title or '主管' in title or 'visual' in title or 'design' in title) and ('senior' in title or 'execu' in title or 'officer' in title or 'supervi' in title):
+                        table[x, 'job_code'] = '212'
+                        
+                    if ('採購' in title) and ('助理' in title or 'merchan' in title):
+                        table[x, 'job_code'] = '517
+                
+              </code>
+            </pre>
+                
+      
+      </div>
+    </div>
+    <script src="/static/js/special.js"></script>
+  </body>
+</html>

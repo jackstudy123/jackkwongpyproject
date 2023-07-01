@@ -1,0 +1,88 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.menu {
+  flex: 1;
+  width: 25%;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  
+
+}
+
+.menu li a {
+  font-size: 18px;
+}
+
+
+.menu ul {
+  margin-top: auto;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+  height: 100%; 
+}
+
+.menu li {
+  flex: 1; 
+}
+
+.menu li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+}
+
+
+
+.menu li:hover {
+  background-color: #ccc;
+}
+
+.menu li:hover a {
+  color: #fff;
+}
+
+
+.menu-header img {
+  max-width: 100% ;
+  max-height: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+a {
+  text-decoration: none;
+  color: #333;
+
+}
+
+
+.content {
+  flex: 3;
+  padding: 10px;
+  width: 75%;
+  overflow-y: auto;
+}
+
+
+

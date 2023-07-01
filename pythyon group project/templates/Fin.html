@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Website</title>
+    <link rel="stylesheet" href="/static/css/hamestyle.css">
+  </head>
+  <body>
+   
+    <div class="container">
+      <div class="menu">
+        <div class="menu-header">
+          <img src="/static/image/DSA.png" alt="Menu Header">
+        </div>
+        <ul>
+          <li><a href="IN">Introduction</a></li>
+          <li><a href="DataA">Data Analysis</a></li>
+          <li><a href="DataM">Data Modeling</a></li>
+          <li><a href="Fin">Findings</a></li>
+          <li><a href="Eva">Evaluation</a></li>
+          <li><a href="Conclu">Conclusion</a></li>
+        </ul>
+      </div>
+      <div class="content">
+        <p><h1>Findings</h1><p>
+            <p><h2>The first 50 occupations<h2></p>
+            <style>
+                table {
+                  border-collapse: collapse;
+                }
+              
+                td {
+                  background-color: lightgray;
+                  border: 1px solid black;
+                  padding: 5px;
+                }
+              </style>
+              
+              <table>
+              {% for row in data %}
+                <tr>
+                  {% for cell in row %}
+                    <td>{{ cell }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+              </table>
+              This table is a data analysis model written in R language, and the "job_code" column represents the job code identified by the model analysis.
+       
+       
+              <p><br></p>
+      
+      </div>
+    </div>
+    <script src="/static/js/special.js"></script>
+  </body>
+</html>
